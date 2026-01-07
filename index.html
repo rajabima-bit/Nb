@@ -9,17 +9,16 @@
 *{box-sizing:border-box}
 body{
   margin:0;
-  font-family:'Segoe UI', sans-serif;
+  font-family:'Segoe UI',sans-serif;
   background:linear-gradient(135deg,#ffd6e8,#f7f0ff);
   overflow:hidden;
 }
 
-/* container */
 .container{
   height:100vh;
   display:flex;
-  align-items:center;
   justify-content:center;
+  align-items:center;
   text-align:center;
   padding:20px;
 }
@@ -34,16 +33,8 @@ body{
   animation:fadeIn .8s ease;
 }
 
-h1{
-  color:#ff7aa2;
-  margin-bottom:10px;
-}
-
-p{
-  color:#555;
-  font-size:15px;
-  line-height:1.5;
-}
+h1{color:#ff7aa2}
+p{color:#555;font-size:15px;line-height:1.5}
 
 button{
   margin-top:15px;
@@ -59,19 +50,18 @@ button:hover{opacity:.9}
 
 /* boneka */
 .doll{
-  width:120px;
-  height:120px;
+  width:120px;height:120px;
   background:#ffe0f0;
   border-radius:50%;
   margin:0 auto 15px;
   position:relative;
+  animation:sway 3s ease-in-out infinite;
 }
 .eye{
   width:10px;height:10px;
-  background:#333;
-  border-radius:50%;
-  position:absolute;
-  top:45px;
+  background:#333;border-radius:50%;
+  position:absolute;top:45px;
+  animation:blink 4s infinite;
 }
 .eye.left{left:40px}
 .eye.right{right:40px}
@@ -79,9 +69,16 @@ button:hover{opacity:.9}
   width:30px;height:15px;
   border-bottom:4px solid #333;
   border-radius:0 0 30px 30px;
-  position:absolute;
-  bottom:35px;
-  left:45px;
+  position:absolute;bottom:35px;left:45px;
+}
+
+@keyframes blink{
+  0%,90%,100%{height:10px}
+  95%{height:2px}
+}
+@keyframes sway{
+  0%,100%{transform:rotate(0deg)}
+  50%{transform:rotate(2deg)}
 }
 
 /* gallery */
@@ -96,6 +93,23 @@ button:hover{opacity:.9}
   height:80px;
   object-fit:cover;
   border-radius:15px;
+  cursor:pointer;
+}
+
+/* modal foto */
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.7);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:99;
+}
+.modal img{
+  max-width:90%;
+  max-height:90%;
+  border-radius:20px;
 }
 
 /* animasi */
@@ -112,10 +126,7 @@ button:hover{opacity:.9}
   animation:float 5s linear infinite;
 }
 @keyframes float{
-  to{
-    transform:translateY(-110vh);
-    opacity:0;
-  }
+  to{transform:translateY(-110vh);opacity:0}
 }
 </style>
 </head>
@@ -126,90 +137,109 @@ button:hover{opacity:.9}
 
 <div class="container">
 
-  <!-- STEP 1 -->
-  <div class="card" id="step1">
-    <div class="doll">
-      <div class="eye left"></div>
-      <div class="eye right"></div>
-      <div class="mouth"></div>
-    </div>
-    <h1>Hai Babbbbb 🌸</h1>
-    <p>Ada satu hal kecil buat kau hari ini</p>
-    <button onclick="nextStep()">Buka 💗</button>
+<div class="card" id="step1">
+  <div class="doll">
+    <div class="eye left"></div>
+    <div class="eye right"></div>
+    <div class="mouth"></div>
+  </div>
+  <h1>Hai Babbbbb 🌸</h1>
+  <p>Ada satu hal kecil buat kau hari ini</p>
+  <button onclick="nextStep()">Buka 💗</button>
+</div>
+
+<div class="card" id="step2" style="display:none">
+  <h1>Peluk virtual 🤍</h1>
+  <p id="type2"></p>
+  <button onclick="nextStep()">Lanjut</button>
+</div>
+
+<div class="card" id="step3" style="display:none">
+  <h1>Kau itu…</h1>
+  <p id="type3"></p>
+  <button onclick="nextStep()">Lanjut</button>
+</div>
+
+<div class="card" id="step4" style="display:none">
+  <h1>Babbbb 🤍</h1>
+  <p>Kalau kau capek atau lagi sedih,kau bisa buka ini lagi yaa 🌷</p>
+
+  <div class="gallery" id="gallery">
+    <img src="foto1.jpg" onclick="openModal(this.src)">
+    <img src="foto2.jpg" onclick="openModal(this.src)">
+    <img src="foto3.jpg" onclick="openModal(this.src)">
   </div>
 
-  <!-- STEP 2 -->
-  <div class="card" id="step2" style="display:none">
-    <h1>Peluk virtual 🤍</h1>
-    <p>
-      Kalau hari ini terasa berat,<br>
-      capek, atau bikin kau pengen diam sebentar,<br>
-      ingat ya… kau nggak sendirian.
-    </p>
-    <button onclick="nextStep()">Lanjut</button>
-  </div>
-
-  <!-- STEP 3 -->
-  <div class="card" id="step3" style="display:none">
-    <h1>Kau itu…</h1>
-    <p>
-      Lebih kuat dari yang kau kira 🌷<br>
-      Lebih berharga dari yang kau sadari<br>
-      Dan pantas dapat hari yang lebih baik.
-    </p>
-    <button onclick="nextStep()">Lanjut</button>
-  </div>
-
-  <!-- STEP 4 (FOTO) -->
-  <div class="card" id="step4" style="display:none">
-    <h1>Babbbb 🤍</h1>
-    <p>
-      Kalau kau capek atau lagi sedih,<br>
-      kau bisa buka ini lagi yaa.<br>
-      Setidaknya bisa sedikit menghibur 🌸
-    </p>
-
-    <div class="gallery" id="gallery">
-      <img src="foto1.jpg">
-      <img src="foto2.jpg">
-      <img src="foto3.jpg">
-    </div>
-
-    <button id="lihatBtn" onclick="showAll()">Lihat Semua 📸</button>
-    <button onclick="finish()">Senyum ya 😊</button>
-  </div>
+  <button id="lihatBtn" onclick="showAll()">Lihat Semua 📸</button>
+  <button onclick="finish()">Senyum ya 😊</button>
+</div>
 
 </div>
 
+<div class="modal" id="photoModal" onclick="closeModal()">
+  <img id="modalImg">
+</div>
+
 <script>
-let step = 1;
-const music = document.getElementById("bgm");
+let step=1, secretTap=0;
+const music=document.getElementById("bgm");
 
 function nextStep(){
   document.getElementById("step"+step).style.display="none";
   step++;
   document.getElementById("step"+step).style.display="block";
   music.play();
+
+  if(step===2){
+    typeText("type2",
+    "Kalau hari ini terasa berat,\ncapek, atau bikin kau pengen diam sebentar,\ningat ya… kau nggak sendirian 🤍");
+  }
+  if(step===3){
+    typeText("type3",
+    "Kau itu lebih kuat dari yang kau kira 🌷\nlebih berharga dari yang kau sadari\ndan pantas dapat hari yang lebih baik.");
+  }
+}
+
+function typeText(id,text,speed=40){
+  let i=0;
+  const el=document.getElementById(id);
+  el.innerHTML="";
+  const typing=setInterval(()=>{
+    el.innerHTML+=text[i]==="\n"?"<br>":text[i];
+    i++;
+    if(i>=text.length) clearInterval(typing);
+  },speed);
 }
 
 function showAll(){
-  document.getElementById("gallery").innerHTML = `
-    <img src="foto1.jpg">
-    <img src="foto2.jpg">
-    <img src="foto3.jpg">
-    <img src="foto4.jpg">
-    <img src="foto5.jpg">
-    <img src="foto6.jpg">
+  document.getElementById("gallery").innerHTML=`
+    <img src="foto1.jpg" onclick="openModal(this.src)">
+    <img src="foto2.jpg" onclick="openModal(this.src)">
+    <img src="foto3.jpg" onclick="openModal(this.src)">
+    <img src="foto4.jpg" onclick="openModal(this.src)">
+    <img src="foto5.jpg" onclick="openModal(this.src)">
+    <img src="foto6.jpg" onclick="openModal(this.src)">
   `;
   document.getElementById("lihatBtn").style.display="none";
 }
 
-function finish(){
-  createHearts();
-  alert("Babbbbb, kamu berharga 🤍");
+function openModal(src){
+  document.getElementById("modalImg").src=src;
+  document.getElementById("photoModal").style.display="flex";
+}
+function closeModal(){
+  document.getElementById("photoModal").style.display="none";
 }
 
-function createHearts(){
+document.querySelector(".doll").onclick=()=>{
+  secretTap++;
+  if(secretTap===5){
+    alert("Babbbbb \nKalau kau baca ini, berarti kau kuat banget hari ini.");
+    secretTap=0;
+  }
+};
+
+function finish(){
   for(let i=0;i<20;i++){
     const h=document.createElement("div");
     h.className="heart";
