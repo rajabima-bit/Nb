@@ -83,15 +83,14 @@ button:hover{opacity:.9}
   left:45px;
 }
 
-/* galeri */
 .gallery{
-  display:flex;
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
   gap:10px;
-  justify-content:center;
-  margin-top:10px;
+  margin-top:15px;
 }
 .gallery img{
-  width:80px;
+  width:100%;
   height:80px;
   object-fit:cover;
   border-radius:15px;
@@ -139,7 +138,7 @@ button:hover{opacity:.9}
     <h1>Peluk virtual</h1>
     <p>
       Kalau hari ini terasa berat, capek, atau bikin kau pengen diam sebentar  
-      ingat ya… kau itu **nggak sendirian**.
+      ingat ya… kau itu nggak sendirian.
     </p>
     <button onclick="nextStep()">Lanjut</button>
   </div>
@@ -149,7 +148,15 @@ button:hover{opacity:.9}
     <p>
       Lebih kuat dari yang kau kira 🌷  
       Lebih berharga dari yang kau sadari  
-      Dan pantas dapat hari yang baik.
+      Dan pantas dapat hari yang lebih baik.
+    </p>
+
+    <div class="card" id="step4" style="display:none">
+    <h1>Babbbb</h1>
+    <p>
+      Kalo kau capee atau lagi sedihh
+      kau bisa bukaa ini lagii
+      setidaknyaa bisa sedikit menghibur kan.
     </p>
 
     <div class="gallery">
@@ -160,7 +167,8 @@ button:hover{opacity:.9}
       <img src="foto5.jpg" alt="foto kita">
       <img src="foto6.jpg" alt="foto kita">
     </div>
-
+    
+    <button onclick="showAll()">Lihat Semua 📸</button>
     <button onclick="finish()">Senyum ya 😊</button>
   </div>
 </div>
@@ -178,7 +186,7 @@ function nextStep(){
 
 function finish(){
   createHearts();
-  alert("Babbbbb, kamu berharga 🤍");
+  alert("Babbbbb, kamu berharga🤍");
 }
 
 function createHearts(){
