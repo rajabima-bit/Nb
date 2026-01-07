@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aloo Babbbbb 🌷</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg,#ffd6e8,#f7f0ff);
+  overflow:hidden;
+}
+
+/* container */
+.container{
+  height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:20px;
+}
+
+.card{
+  background:#fff;
+  border-radius:25px;
+  padding:25px;
+  max-width:360px;
+  width:100%;
+  box-shadow:0 20px 40px rgba(0,0,0,.15);
+  animation: fadeIn .8s ease;
+}
+
+h1{
+  color:#ff7aa2;
+  margin-bottom:10px;
+}
+
+p{
+  color:#555;
+  font-size:15px;
+}
+
+button{
+  margin-top:15px;
+  padding:12px 20px;
+  border:none;
+  border-radius:20px;
+  background:#ff9ecb;
+  color:#fff;
+  font-size:15px;
+  cursor:pointer;
+}
+button:hover{opacity:.9}
+
+/* boneka */
+.doll{
+  width:120px;
+  height:120px;
+  background:#ffe0f0;
+  border-radius:50%;
+  margin:0 auto 15px;
+  position:relative;
+}
+.eye{
+  width:10px;height:10px;
+  background:#333;
+  border-radius:50%;
+  position:absolute;
+  top:45px;
+}
+.eye.left{left:40px}
+.eye.right{right:40px}
+.mouth{
+  width:30px;height:15px;
+  border-bottom:4px solid #333;
+  border-radius:0 0 30px 30px;
+  position:absolute;
+  bottom:35px;
+  left:45px;
+}
+
+/* galeri */
+.gallery{
+  display:flex;
+  gap:10px;
+  justify-content:center;
+  margin-top:10px;
+}
+.gallery img{
+  width:80px;
+  height:80px;
+  object-fit:cover;
+  border-radius:15px;
+}
+
+/* animasi */
+@keyframes fadeIn{
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* hati */
+.heart{
+  position:fixed;
+  bottom:-20px;
+  font-size:20px;
+  animation: float 5s linear infinite;
+}
+@keyframes float{
+  to{
+    transform:translateY(-110vh);
+    opacity:0;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<audio id="bgm" src="musik.mp3" loop></audio>
+
+<div class="container">
+  <div class="card" id="step1">
+    <div class="doll">
+      <div class="eye left"></div>
+      <div class="eye right"></div>
+      <div class="mouth"></div>
+    </div>
+    <h1>Hai Babbbbb 🌸</h1>
+    <p>Ada satu hal kecil buat kau hari ini</p>
+    <button onclick="nextStep()">Buka 💗</button>
+  </div>
+
+  <div class="card" id="step2" style="display:none">
+    <h1>Peluk virtual</h1>
+    <p>
+      Kalau hari ini terasa berat, capek, atau bikin kau pengen diam sebentar  
+      ingat ya… kau itu **nggak sendirian**.
+    </p>
+    <button onclick="nextStep()">Lanjut</button>
+  </div>
+
+  <div class="card" id="step3" style="display:none">
+    <h1>Kau itu…</h1>
+    <p>
+      Lebih kuat dari yang kau kira 🌷  
+      Lebih berharga dari yang kau sadari  
+      Dan pantas dapat hari yang baik.
+    </p>
+
+    <div class="gallery">
+      <img src="foto1.jpg" alt="foto kita">
+      <img src="foto2.jpg" alt="foto kita">
+      <img src="foto3.jpg" alt="foto kita">
+      <img src="foto4.jpg" alt="foto kita">
+      <img src="foto5.jpg" alt="foto kita">
+      <img src="foto6.jpg" alt="foto kita">
+    </div>
+
+    <button onclick="finish()">Senyum ya 😊</button>
+  </div>
+</div>
+
+<script>
+let step = 1;
+const music = document.getElementById("bgm");
+
+function nextStep(){
+  document.getElementById("step"+step).style.display="none";
+  step++;
+  document.getElementById("step"+step).style.display="block";
+  music.play();
+}
+
+function finish(){
+  createHearts();
+  alert("Babbbbb, kamu berharga 🤍");
+}
+
+function createHearts(){
+  for(let i=0;i<20;i++){
+    const h=document.createElement("div");
+    h.className="heart";
+    h.innerHTML="💖";
+    h.style.left=Math.random()*100+"vw";
+    h.style.animationDuration=(3+Math.random()*3)+"s";
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),6000);
+  }
+}
+</script>
+
+</body>
+</html>
